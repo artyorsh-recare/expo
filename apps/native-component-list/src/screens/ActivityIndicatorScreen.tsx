@@ -54,7 +54,7 @@ export default function ActivityIndicatorScreen() {
 }
 
 ActivityIndicatorScreen.navigationOptions = {
-  title: 'ActivityIndicator',
+  title: 'react-native/activity-indicator',
 };
 
 const styles = StyleSheet.create({
