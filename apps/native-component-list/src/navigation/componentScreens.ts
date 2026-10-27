@@ -60,6 +60,42 @@ export const ScreensList: ScreenConfig[] = [
   },
   {
     getComponent() {
+      return optionalRequire(() => require('../screens/HeroUI/DatePickerScreen'));
+    },
+    name: 'DatePicker',
+    route: 'hero-ui/date-picker',
+    options: { title: 'DatePicker' },
+    compatibility: ['hero-ui'],
+  },
+  {
+    getComponent() {
+      return optionalRequire(() => require('../screens/HeroUI/ActivityIndicatorScreen'));
+    },
+    name: 'ActivityIndicator',
+    route: 'hero-ui/activity-indicator',
+    options: { title: 'ActivityIndicator' },
+    compatibility: ['hero-ui'],
+  },
+  {
+    getComponent() {
+      return optionalRequire(() => require('../screens/HeroUI/AutocompleteScreen'));
+    },
+    name: 'Autocomplete',
+    route: 'hero-ui/autocomplete',
+    options: { title: 'Autocomplete' },
+    compatibility: ['hero-ui'],
+  },
+  {
+    getComponent() {
+      return optionalRequire(() => require('../screens/HeroUI/PickerScreen'));
+    },
+    name: 'Picker',
+    route: 'hero-ui/picker',
+    options: { title: 'Picker' },
+    compatibility: ['hero-ui'],
+  },
+  {
+    getComponent() {
       return optionalRequire(() => require('../screens/DrawerLayoutAndroidScreen'));
     },
     name: 'DrawerLayoutAndroid',

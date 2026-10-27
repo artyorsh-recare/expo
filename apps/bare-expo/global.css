@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "uniwind";
 @import "heroui-native/styles";
+/* Pro component layout (calendar grid, date field). Chart tokens only; no theme. */
+@import "heroui-native-pro/styles";
 /* Must follow heroui-native/styles. This is the glass theme. */
 @import "heroui-native-pro/themes/glass";
 /* Uniwind's useCSSVariable only reads @theme static. The glass import sets
