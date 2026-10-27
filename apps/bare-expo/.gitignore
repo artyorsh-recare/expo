@@ -55,6 +55,7 @@ local.properties
 # node.js
 #
 node_modules/
+uniwind-types.d.ts
 npm-debug.log
 yarn-error.log
 

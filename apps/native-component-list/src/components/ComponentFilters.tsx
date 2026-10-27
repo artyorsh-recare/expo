@@ -24,17 +24,18 @@ type Props = {
 };
 
 function filterChips(): Filter[] {
+  const hero: Filter = 'hero-ui';
   if (Platform.OS === 'android') {
-    return ['universal', 'android-only', 'community'];
+    return ['universal', 'android-only', 'community', hero];
   }
   if (Platform.OS === 'ios') {
-    return ['universal', 'ios-only', 'community'];
+    return ['universal', 'ios-only', 'community', hero];
   }
-  return ['universal', 'ios-only', 'android-only', 'community'];
+  return ['universal', 'ios-only', 'android-only', 'community', hero];
 }
 
 export function defaultFilters(): Filter[] {
-  return ['universal', 'community'];
+  return ['universal', 'hero-ui'];
 }
 
 function filterLabel(filter: Filter): string {
@@ -46,6 +47,9 @@ function filterLabel(filter: Filter): string {
   }
   if (filter === 'android-only') {
     return 'Android-only';
+  }
+  if (filter === 'hero-ui') {
+    return 'Hero UI';
   }
   return 'Community';
 }

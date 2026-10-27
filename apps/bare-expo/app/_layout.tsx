@@ -1,3 +1,4 @@
+import '../global.css';
 import { ThemeProvider, useTheme } from 'ThemeProvider';
 import BenchmarkHelper from 'benchmark-helper';
 import * as DevMenu from 'expo-dev-menu';
@@ -100,7 +101,7 @@ function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="components" />
         <Stack.Screen name="redirect" />
         <Stack.Screen name="search" options={getSearchScreenOptions?.(theme)} />
       </Stack>

@@ -221,6 +221,7 @@ function CatalogMarks({ compatibility }: { compatibility?: Filter[] }) {
       {tags.includes('ios-only') ? <CatalogMark color={filterColors['ios-only']} /> : null}
       {tags.includes('android-only') ? <CatalogMark color={filterColors['android-only']} /> : null}
       {tags.includes('community') ? <CatalogMark color={filterColors.community} /> : null}
+      {tags.includes('hero-ui') ? <CatalogMark color={filterColors['hero-ui']} /> : null}
     </View>
   );
 }

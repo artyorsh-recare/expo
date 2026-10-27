@@ -33,6 +33,33 @@ const UIUniversalScreens: ScreenConfig[] = optionalScreens(
 export const ScreensList: ScreenConfig[] = [
   {
     getComponent() {
+      return optionalRequire(() => require('../screens/HeroUI/ButtonScreen'));
+    },
+    name: 'Button',
+    route: 'hero-ui/button',
+    options: { title: 'Button' },
+    compatibility: ['hero-ui'],
+  },
+  {
+    getComponent() {
+      return optionalRequire(() => require('../screens/HeroUI/BottomSheetScreen'));
+    },
+    name: 'Bottom Sheet',
+    route: 'hero-ui/bottom-sheet',
+    options: { title: 'Bottom Sheet' },
+    compatibility: ['hero-ui'],
+  },
+  {
+    getComponent() {
+      return optionalRequire(() => require('../screens/HeroUI/CardScreen'));
+    },
+    name: 'Card',
+    route: 'hero-ui/card',
+    options: { title: 'Card' },
+    compatibility: ['hero-ui'],
+  },
+  {
+    getComponent() {
       return optionalRequire(() => require('../screens/DrawerLayoutAndroidScreen'));
     },
     name: 'DrawerLayoutAndroid',

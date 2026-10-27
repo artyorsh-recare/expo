@@ -2,7 +2,7 @@ import { useTheme } from 'ThemeProvider';
 import { Stack } from 'expo-router';
 import * as React from 'react';
 
-import { optionalRequire } from '../../../optionalRequire';
+import { optionalRequire } from '../../optionalRequire';
 
 const getStackScreenOptions = optionalRequire(() =>
   require('native-component-list/src/navigation/StackConfig')

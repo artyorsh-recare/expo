@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { optionalRequire } from '../../../optionalRequire';
+import { optionalRequire } from '../../optionalRequire';
 
 const ExpoComponents = optionalRequire(() =>
   require('native-component-list/src/screens/ExpoComponentsScreen')

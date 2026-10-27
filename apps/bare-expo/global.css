@@ -1,0 +1,17 @@
+@import "tailwindcss";
+@import "uniwind";
+@import "heroui-native/styles";
+/* Must follow heroui-native/styles. This is the glass theme. */
+@import "heroui-native-pro/themes/glass";
+/* Uniwind's useCSSVariable only reads @theme static. The glass import sets
+   --theme inside @theme inline static, which the card's blur layer never sees. */
+@theme static {
+  --theme: glass;
+}
+
+@source "./app";
+/* pnpm links these next to the app. Tailwind skips a path that is not there. */
+@source "./node_modules/heroui-native/lib";
+@source "./node_modules/heroui-native-pro/lib";
+@source "../../node_modules/heroui-native/lib";
+@source "../../node_modules/heroui-native-pro/lib";
