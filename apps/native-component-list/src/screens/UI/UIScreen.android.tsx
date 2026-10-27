@@ -3,23 +3,7 @@ import ComponentListScreen, { componentScreensToListElements } from '../Componen
 
 export const UIScreens = [
   {
-    name: 'AnimatedVisibility component',
-    route: 'ui/animated-visibility',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./AnimatedVisibilityScreen'));
-    },
-  },
-  {
-    name: 'Badge component',
-    route: 'ui/badge',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./BadgeScreen'));
-    },
-  },
-  {
-    name: 'AlertDialog component',
+    name: 'Dialog, Alert',
     route: 'ui/alert-dialog',
     options: {},
     getComponent() {
@@ -27,7 +11,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'BasicAlertDialog component',
+    name: 'Dialog, Basic Alert',
     route: 'ui/basic-alert-dialog',
     options: {},
     getComponent() {
@@ -35,15 +19,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'CompositionLocalProvider component',
-    route: 'ui/composition-local-provider',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./CompositionLocalProviderScreen'));
-    },
-  },
-  {
-    name: 'Card component',
+    name: 'zz Card',
     route: 'ui/card',
     options: {},
     getComponent() {
@@ -51,7 +27,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Button component',
+    name: 'Button',
     route: 'ui/button',
     options: {},
     getComponent() {
@@ -59,7 +35,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Checkbox component',
+    name: 'Checkbox, Compose',
     route: 'ui/checkbox',
     options: {},
     getComponent() {
@@ -67,7 +43,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'IconButton component',
+    name: 'IconButton',
     route: 'ui/icon-button',
     options: {},
     getComponent() {
@@ -75,15 +51,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Image component',
-    route: 'ui/image',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./ImageScreen'));
-    },
-  },
-  {
-    name: 'Radio Button component',
+    name: 'Radio',
     route: 'ui/radio-button',
     options: {},
     getComponent() {
@@ -91,7 +59,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Segmented Control component',
+    name: 'SegmentedControl',
     route: 'ui/segmented-control',
     options: {},
     getComponent() {
@@ -99,7 +67,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Date Time Picker component',
+    name: 'DatePicker, Compose',
     route: 'ui/date-picker',
     options: {},
     getComponent() {
@@ -107,7 +75,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Date Range Picker component',
+    name: 'DatePicker, Range',
     route: 'ui/date-range-picker',
     options: {},
     getComponent() {
@@ -115,75 +83,11 @@ export const UIScreens = [
     },
   },
   {
-    name: 'ExposedDropdownMenuBox component',
+    name: 'Menu, Exposed',
     route: 'ui/exposed-dropdown-menu-box',
     options: {},
     getComponent() {
       return optionalRequire(() => require('./ExposedDropdownMenuBoxScreen'));
-    },
-  },
-  {
-    name: 'Community BottomSheet replacement',
-    route: 'ui/community-bottomsheet',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./CommunityBottomSheetScreen'));
-    },
-  },
-  {
-    name: 'Community Picker replacement',
-    route: 'ui/community-picker',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./CommunityPickerScreen'));
-    },
-  },
-  {
-    name: 'Community DateTimePicker replacement',
-    route: 'ui/community-datetimepicker',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./CommunityDateTimePickerScreen'));
-    },
-  },
-  {
-    name: 'Community SegmentedControl replacement',
-    route: 'ui/community-segmented-control',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./CommunitySegmentedControlScreen'));
-    },
-  },
-  {
-    name: 'Community Slider replacement',
-    route: 'ui/community-slider',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./CommunitySliderScreen'));
-    },
-  },
-  {
-    name: 'Community MaskedView replacement',
-    route: 'ui/community-masked-view',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./CommunityMaskedViewScreen'));
-    },
-  },
-  {
-    name: 'Community Menu replacement',
-    route: 'ui/community-menu',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./CommunityMenuScreen'));
-    },
-  },
-  {
-    name: 'Community PagerView replacement',
-    route: 'ui/community-pager-view',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./CommunityPagerViewScreen'));
     },
   },
   {
@@ -219,14 +123,6 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Divider component',
-    route: 'ui/divider',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./DividerScreen'));
-    },
-  },
-  {
     name: 'Slider component',
     route: 'ui/slider',
     options: {},
@@ -235,27 +131,11 @@ export const UIScreens = [
     },
   },
   {
-    name: 'DropdownMenu component',
+    name: 'Menu',
     route: 'ui/dropdown-menu',
     options: {},
     getComponent() {
       return optionalRequire(() => require('./DropdownMenuScreen'));
-    },
-  },
-  {
-    name: 'Color Picker component',
-    route: 'ui/color-picker',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./ColorPickerScreen'));
-    },
-  },
-  {
-    name: 'Material Colors',
-    route: 'ui/material-colors',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./MaterialColorsScreen'));
     },
   },
   {
@@ -267,7 +147,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'TextField component',
+    name: 'TextField',
     route: 'ui/textField',
     options: {},
     getComponent() {
@@ -275,7 +155,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'BasicTextField component',
+    name: 'TextField, Basic',
     route: 'ui/basicTextField',
     options: {},
     getComponent() {
@@ -283,7 +163,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Progress component',
+    name: 'Progress',
     route: 'ui/progress',
     options: {},
     getComponent() {
@@ -291,15 +171,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'List component',
-    route: 'ui/list',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./ListScreen'));
-    },
-  },
-  {
-    name: 'NavigationBar component',
+    name: 'Bottom Tabs, Compose',
     route: 'ui/navigation-bar',
     options: {},
     getComponent() {
@@ -307,7 +179,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'BottomSheet component',
+    name: 'BottomSheet',
     route: 'ui/bottomsheet',
     options: {},
     getComponent() {
@@ -315,7 +187,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Chip component',
+    name: 'zz Chip',
     route: 'ui/assist-chip',
     options: {},
     getComponent() {
@@ -323,7 +195,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'HorizontalPager component',
+    name: 'HorizontalPager',
     route: 'ui/horizontal-pager',
     options: {},
     getComponent() {
@@ -331,7 +203,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Carousel component',
+    name: 'zz Carousel',
     route: 'ui/carousel',
     options: {},
     getComponent() {
@@ -339,47 +211,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'LazyColumn / LazyRow',
-    route: 'ui/lazy-column-row',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./LazyColumnRowScreen'));
-    },
-  },
-  {
-    name: 'LazyColumn.Items and LazyRow.Items data (experimental)',
-    route: 'ui/lazy-items',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./LazyItemsScreen'));
-    },
-  },
-  {
-    name: 'Jetpack Compose primitives',
-    route: 'ui/jetpack-compose-primitives',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./JetpackComposePrimitivesScreen'));
-    },
-  },
-  {
-    name: 'Hosting RN Views',
-    route: 'ui/hosting-rn-views',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./HostingRNViewsScreen'));
-    },
-  },
-  {
-    name: 'Host touch after ripple',
-    route: 'ui/host-touch-after-ripple',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./HostTouchAfterRippleScreen'));
-    },
-  },
-  {
-    name: 'ToggleButton component',
+    name: 'ToggleButton',
     route: 'ui/toggle-button',
     options: {},
     getComponent() {
@@ -387,7 +219,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'FloatingActionButton component',
+    name: 'Button, Floating',
     route: 'ui/floating-action-button',
     options: {},
     getComponent() {
@@ -395,15 +227,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'graphicsLayer modifier',
-    route: 'ui/graphics-layer',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./GraphicsLayerScreen'));
-    },
-  },
-  {
-    name: 'HorizontalFloatingToolbar component',
+    name: 'HorizontalFloatingToolbar',
     route: 'ui/horizontal-floating-toolbar',
     options: {},
     getComponent() {
@@ -411,15 +235,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Modifiers',
-    route: 'ui/modifiers',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./ModifiersScreen'));
-    },
-  },
-  {
-    name: 'PullToRefreshBox component',
+    name: 'PullToRefreshBox',
     route: 'ui/pull-to-refresh-box',
     options: {},
     getComponent() {
@@ -427,7 +243,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Surface component',
+    name: 'Surface',
     route: 'ui/surface',
     options: {},
     getComponent() {
@@ -435,7 +251,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Snackbar component',
+    name: 'Snackbar',
     route: 'ui/snackbar',
     options: {},
     getComponent() {
@@ -443,7 +259,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Tooltip component',
+    name: 'Tooltip',
     route: 'ui/tooltip',
     options: {},
     getComponent() {
@@ -451,7 +267,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'TopAppBar component',
+    name: 'TopAppBar',
     route: 'ui/top-app-bar',
     options: {},
     getComponent() {
@@ -459,15 +275,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Extending Expo UI',
-    route: 'ui/extending',
-    options: {},
-    getComponent() {
-      return optionalRequire(() => require('./ExtendingExpoUIScreen'));
-    },
-  },
-  {
-    name: 'Loading Indicator component',
+    name: 'ActivityIndicator, Compose',
     route: 'ui/loading-indicator',
     options: {},
     getComponent() {

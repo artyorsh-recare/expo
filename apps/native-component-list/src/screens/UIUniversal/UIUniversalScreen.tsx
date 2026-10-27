@@ -24,30 +24,6 @@ export const UIUniversalScreens = [
     },
   },
   {
-    name: `${SCREEN_NAME_PREFIX}Column`,
-    route: 'ui-universal/column',
-    options: { title: 'Column' },
-    getComponent() {
-      return optionalRequire(() => require('./ColumnScreen'));
-    },
-  },
-  {
-    name: `${SCREEN_NAME_PREFIX}Row`,
-    route: 'ui-universal/row',
-    options: { title: 'Row' },
-    getComponent() {
-      return optionalRequire(() => require('./RowScreen'));
-    },
-  },
-  {
-    name: `${SCREEN_NAME_PREFIX}ScrollView`,
-    route: 'ui-universal/scrollview',
-    options: { title: 'ScrollView' },
-    getComponent() {
-      return optionalRequire(() => require('./ScrollViewScreen'));
-    },
-  },
-  {
     name: `${SCREEN_NAME_PREFIX}Switch`,
     route: 'ui-universal/switch',
     options: { title: 'Switch' },
@@ -80,14 +56,6 @@ export const UIUniversalScreens = [
     },
   },
   {
-    name: `${SCREEN_NAME_PREFIX}Collapsible`,
-    route: 'ui-universal/collapsible',
-    options: { title: 'Collapsible' },
-    getComponent() {
-      return optionalRequire(() => require('./CollapsibleScreen'));
-    },
-  },
-  {
     name: `${SCREEN_NAME_PREFIX}FieldGroup`,
     route: 'ui-universal/field-group',
     options: { title: 'FieldGroup' },
@@ -109,22 +77,6 @@ export const UIUniversalScreens = [
     options: { title: 'Picker' },
     getComponent() {
       return optionalRequire(() => require('./PickerScreen'));
-    },
-  },
-  {
-    name: `${SCREEN_NAME_PREFIX}RNHostView`,
-    route: 'ui-universal/rn-host-view',
-    options: { title: 'RNHostView' },
-    getComponent() {
-      return optionalRequire(() => require('./RNHostViewScreen'));
-    },
-  },
-  {
-    name: `${SCREEN_NAME_PREFIX}Spacer`,
-    route: 'ui-universal/spacer',
-    options: { title: 'Spacer' },
-    getComponent() {
-      return optionalRequire(() => require('./SpacerScreen'));
     },
   },
   {

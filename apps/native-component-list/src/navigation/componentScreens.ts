@@ -25,7 +25,7 @@ export const ScreensList: ScreenConfig[] = [
     getComponent() {
       return optionalRequire(() => require('../screens/BlurView/BlurViewCompatScreen'));
     },
-    name: 'BlurView (expo-blur)',
+    name: 'Blur (expo-blur)',
     route: 'blur',
   },
   {
@@ -74,7 +74,7 @@ export const ScreensList: ScreenConfig[] = [
     getComponent() {
       return optionalRequire(() => require('../screens/DateTimePickerScreen'));
     },
-    name: 'DateTimePicker (react-native-community)',
+    name: 'DatePicker, Community',
   },
   {
     getComponent() {
@@ -97,15 +97,9 @@ export const ScreensList: ScreenConfig[] = [
   },
   {
     getComponent() {
-      return optionalRequire(() => require('../screens/UI/UIScreen'));
-    },
-    name: 'Expo UI',
-  },
-  {
-    getComponent() {
       return optionalRequire(() => require('../screens/UIUniversal/UIUniversalScreen'));
     },
-    name: 'Expo UI (Universal)',
+    name: '!! Expo UI (Universal)',
   },
   {
     getComponent() {
@@ -113,6 +107,7 @@ export const ScreensList: ScreenConfig[] = [
     },
     name: 'expo-symbols',
   },
+  ...UIScreens.map((screen) => ({ ...screen, name: `${screen.name} (expo-ui)` })),
 ];
 
 export const Screens: ScreenConfig[] = [
