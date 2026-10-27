@@ -21,7 +21,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getScreenIdForLinking } from 'test-suite/screens/getScreenIdForLinking';
 
 import { useTheme } from '../../../common/ThemeProvider';
-import type { ScreenConfig } from '../types/ScreenConfig';
+import type { Filter, ScreenConfig } from '../types/ScreenConfig';
 
 const useObserve: typeof import('expo-observe').useObserve = isRunningInExpoGo()
   ? () => ({ markInteractive: () => {} })
@@ -32,8 +32,7 @@ export interface ListElement {
   name: string;
   route: string;
   isAvailable: boolean;
-  platform?: 'ios' | 'android';
-  community?: boolean;
+  compatibility?: Filter[];
 }
 
 /**
@@ -45,8 +44,7 @@ export function componentScreensToListElements(screens: ScreenConfig[]): ListEle
     name: screen.name,
     isAvailable: true,
     route: `/components/${getScreenIdForLinking(screen)}`,
-    platform: screen.platform,
-    community: screen.community,
+    compatibility: screen.compatibility,
   }));
 }
 
@@ -135,7 +133,10 @@ export default function ComponentListScreen(props: Props) {
 
   // adjust the right padding for safe area -- we don't need the left because that's where the drawer is.
   const { bottom, right } = useSafeAreaInsets();
-  const itemWidth = isGrid ? Math.floor((width - right) / numColumns) : undefined;
+  const gridGap = 2;
+  const itemWidth = isGrid
+    ? Math.floor((width - right - gridGap * (numColumns - 1)) / numColumns)
+    : undefined;
 
   const renderExampleSection: ListRenderItem<ListElement> = ({ item }) => {
     const { route, screenName, name: exampleName, isAvailable } = item;
@@ -144,14 +145,10 @@ export default function ComponentListScreen(props: Props) {
         <LinkButton
           disabled={!isAvailable}
           href={route ?? screenName ?? exampleName}
-          style={[
-            styles.gridItem,
-            {
-              width: itemWidth,
-              height: 128,
-              borderColor: theme.border.secondary,
-            },
-          ]}>
+          style={{
+            width: itemWidth,
+            height: 80,
+          }}>
           <View style={styles.gridItemBody}>
             <View
               pointerEvents="none"
@@ -161,12 +158,7 @@ export default function ComponentListScreen(props: Props) {
                 {exampleName}
               </Text>
             </View>
-            {item.platform || item.community ? (
-              <View pointerEvents="none" style={styles.catalogMarks}>
-                {item.platform ? <PlatformMark platform={item.platform} /> : null}
-                {item.community ? <Text style={styles.communityLabel}>Community</Text> : null}
-              </View>
-            ) : null}
+            <CatalogMarks compatibility={item.compatibility} />
           </View>
         </LinkButton>
       );
@@ -189,7 +181,7 @@ export default function ComponentListScreen(props: Props) {
     );
   };
 
-  const keyExtractor = React.useCallback((item: ListElement) => item.name, []);
+  const keyExtractor = React.useCallback((item: ListElement) => item.route, []);
 
   const sortedApis = React.useMemo(() => {
     if (props.sort === false) {
@@ -218,9 +210,11 @@ export default function ComponentListScreen(props: Props) {
       keyboardShouldPersistTaps="handled"
       keyboardDismissMode="on-drag"
       style={{ backgroundColor: theme.background.screen }}
+      columnWrapperStyle={isGrid ? { gap: gridGap } : undefined}
       contentContainerStyle={{
         paddingBottom: isMobile ? 0 : bottom,
         paddingRight: isGrid ? right : 0,
+        gap: isGrid ? gridGap : undefined,
       }}
       data={sortedApis}
       keyExtractor={keyExtractor}
@@ -229,14 +223,36 @@ export default function ComponentListScreen(props: Props) {
   );
 }
 
-function PlatformMark({ platform }: { platform: 'ios' | 'android' }) {
-  const backgroundColor = platform === 'ios' ? '#007AFF' : '#3DDC84';
+function CatalogMarks({ compatibility }: { compatibility?: Filter[] }) {
+  const tags = compatibility ?? [];
+  const platform =
+    tags.includes('ios') && !tags.includes('android')
+      ? 'ios'
+      : tags.includes('android') && !tags.includes('ios')
+        ? 'android'
+        : undefined;
+  if (!platform && !tags.includes('community')) {
+    return null;
+  }
   return (
-    <View style={styles.platformMark}>
-      <View style={[styles.platformDot, { backgroundColor }]} />
-      <Text style={[styles.platformMarkText, { color: backgroundColor }]}>
-        {platform === 'ios' ? 'iOS' : 'Android'}
-      </Text>
+    <View pointerEvents="none" style={styles.catalogMarks}>
+      {platform ? (
+        <CatalogMark
+          label={platform === 'ios' ? 'iOS-only' : 'Android-only'}
+          backgroundColor={platform === 'ios' ? '#007AFF' : '#3DDC84'}
+        />
+      ) : null}
+      {tags.includes('community') ? (
+        <CatalogMark label="Community" backgroundColor="#00BCD4" />
+      ) : null}
+    </View>
+  );
+}
+
+function CatalogMark({ label, backgroundColor }: { label: string; backgroundColor: string }) {
+  return (
+    <View style={[styles.catalogMark, { backgroundColor }]}>
+      <Text style={styles.catalogMarkText}>{label}</Text>
     </View>
   );
 }
@@ -267,10 +283,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 15,
   },
-  gridItem: {
-    borderBottomWidth: 1.0 / PixelRatio.get(),
-    borderRightWidth: 1.0 / PixelRatio.get(),
-  },
   gridItemBody: {
     flex: 1,
   },
@@ -291,22 +303,14 @@ const styles = StyleSheet.create({
     left: 8,
     gap: 2,
   },
-  platformMark: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
-  communityLabel: {
-    color: '#00BCD4',
-    fontSize: 10,
-    fontWeight: '600',
-  },
-  platformDot: {
-    width: 6,
-    height: 6,
+  catalogMark: {
+    alignSelf: 'flex-start',
     borderRadius: 3,
+    paddingHorizontal: 4,
+    paddingVertical: 1,
   },
-  platformMarkText: {
+  catalogMarkText: {
+    color: '#fff',
     fontSize: 10,
     fontWeight: '600',
   },

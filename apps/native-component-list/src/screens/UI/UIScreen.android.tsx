@@ -19,7 +19,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'zz Card',
+    name: 'Card',
     route: 'ui/card',
     options: {},
     getComponent() {
@@ -35,7 +35,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Checkbox, Compose',
+    name: 'Checkbox',
     route: 'ui/checkbox',
     options: {},
     getComponent() {
@@ -67,7 +67,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'DatePicker, Compose',
+    name: 'DatePicker',
     route: 'ui/date-picker',
     options: {},
     getComponent() {
@@ -91,7 +91,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Switch component',
+    name: 'Switch',
     route: 'ui/switch',
     options: {},
     getComponent() {
@@ -99,7 +99,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'SyncSwitch component',
+    name: 'SyncSwitch',
     route: 'ui/sync-switch',
     options: {},
     getComponent() {
@@ -107,7 +107,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Shape component',
+    name: 'Shape',
     route: 'ui/shape',
     options: {},
     getComponent() {
@@ -115,7 +115,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Form component',
+    name: 'Form',
     route: 'ui/form',
     options: {},
     getComponent() {
@@ -123,7 +123,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Slider component',
+    name: 'Slider',
     route: 'ui/slider',
     options: {},
     getComponent() {
@@ -139,7 +139,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Text component',
+    name: 'Text',
     route: 'ui/text',
     options: {},
     getComponent() {
@@ -171,7 +171,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Bottom Tabs, Compose',
+    name: 'Bottom Tabs',
     route: 'ui/navigation-bar',
     options: {},
     getComponent() {
@@ -187,7 +187,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'zz Chip',
+    name: 'Chip',
     route: 'ui/assist-chip',
     options: {},
     getComponent() {
@@ -203,7 +203,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'zz Carousel',
+    name: 'Carousel',
     route: 'ui/carousel',
     options: {},
     getComponent() {
@@ -275,7 +275,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'ActivityIndicator, Compose',
+    name: 'ActivityIndicator',
     route: 'ui/loading-indicator',
     options: {},
     getComponent() {

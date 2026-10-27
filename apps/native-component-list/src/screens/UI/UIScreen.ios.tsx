@@ -27,7 +27,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'DatePicker, SwiftUI',
+    name: 'DatePicker',
     route: 'ui/date-picker',
     options: {},
     getComponent() {
@@ -35,7 +35,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'Bottom Tabs, SwiftUI',
+    name: 'Bottom Tabs',
     route: 'ui/tabview',
     options: {},
     getComponent() {
@@ -131,7 +131,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'ActivityIndicator, SwiftUI',
+    name: 'ActivityIndicator',
     route: 'ui/progress-view',
     options: {},
     getComponent() {
@@ -171,7 +171,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'zz Content Transition',
+    name: 'Content Transition',
     route: 'ui/content-transition',
     options: {},
     getComponent() {
@@ -211,7 +211,7 @@ export const UIScreens = [
     },
   },
   {
-    name: 'zz Background',
+    name: 'Background',
     route: 'ui/background',
     options: {},
     getComponent() {
