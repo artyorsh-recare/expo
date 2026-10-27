@@ -10,11 +10,7 @@ const screenRegistry = optionalRequire(() =>
 );
 
 // Resolves an NCL registry screen for a catch-all deep-link id, or renders nothing when NCL isn't bundled.
-export function OptionalRegistryScreenRoute({
-  find,
-}: {
-  find: 'findApiScreen' | 'findComponentScreen';
-}) {
+export function OptionalRegistryScreenRoute({ find }: { find: 'findComponentScreen' }) {
   const findScreen = screenRegistry?.[find];
   if (!RegistryScreenRoute || !findScreen) {
     return null;

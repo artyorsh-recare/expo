@@ -6,12 +6,8 @@ import {
   RoutingQueueApiContext,
 } from 'expo-router/build/global-state/routingQueueContext';
 import { NavigationContext, NavigationRouteContext } from 'expo-router/react-navigation';
-import { Screens as apiScreens } from 'native-component-list/src/navigation/apiScreens';
 import { Screens as componentScreens } from 'native-component-list/src/navigation/componentScreens';
-import {
-  findApiScreen,
-  findComponentScreen,
-} from 'native-component-list/src/navigation/screenRegistry';
+import { findComponentScreen } from 'native-component-list/src/navigation/screenRegistry';
 import React, { useCallback, useMemo, useState } from 'react';
 import {
   AppRegistry,
@@ -25,24 +21,20 @@ import {
 } from 'react-native';
 import { SafeAreaFrameContext, SafeAreaInsetsContext } from 'react-native-safe-area-context';
 
-const sections = [
-  { title: 'APIs', screens: apiScreens },
-  { title: 'Components', screens: componentScreens },
-];
+const sections = [{ title: 'Components', screens: componentScreens }];
 
 const allScreens = sections.flatMap((section) => section.screens);
 
 const NO_INSETS = { top: 0, right: 0, bottom: 0, left: 0 };
 
 /**
- * Maps an Expo Router href from a native-component-list `Link`, such as `/apis/haptics` or
+ * Maps an Expo Router href from a native-component-list `Link`, such as
  * `/components/image/comparison`, back to the registry screen it points at.
  */
 function screenForHref(href) {
   const path = String(href).split(/[?#]/)[0].replace(/^\/+/, '');
   const [tab, ...rest] = path.split('/');
   const id = rest.join('/');
-  if (tab === 'apis') return findApiScreen(id);
   if (tab === 'components') return findComponentScreen(id);
   return undefined;
 }
@@ -137,7 +129,7 @@ function MountedScreen({ screen, push, replace, goBack, canGoBack }) {
 function App() {
   // Screen names, oldest first. Picking a sidebar row starts a new history, a link or
   // `navigation.push` from a screen pushes onto it, and Back pops it.
-  const [history, setHistory] = useState(['ModulesCore']);
+  const [history, setHistory] = useState([componentScreens[0]?.name].filter(Boolean));
   const { width, height } = useWindowDimensions();
   const frame = useMemo(() => ({ x: 0, y: 0, width, height }), [width, height]);
   const selectedName = history[history.length - 1];
