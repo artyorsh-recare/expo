@@ -213,12 +213,11 @@ export default function ComponentListScreen(props: Props) {
 
 function CatalogMarks({ compatibility }: { compatibility?: Filter[] }) {
   const tags = compatibility ?? [];
-  if (tags.length === 0) {
+  if (!tags.some((tag) => tag !== 'universal')) {
     return null;
   }
   return (
     <View pointerEvents="none" style={styles.catalogMarks}>
-      {tags.includes('universal') ? <CatalogMark color={filterColors.universal} /> : null}
       {tags.includes('ios-only') ? <CatalogMark color={filterColors['ios-only']} /> : null}
       {tags.includes('android-only') ? <CatalogMark color={filterColors['android-only']} /> : null}
       {tags.includes('community') ? <CatalogMark color={filterColors.community} /> : null}

@@ -83,7 +83,9 @@ export default function ComponentFilters({ onChange }: Props) {
               },
             ]}>
             <Text style={{ color: theme.text.default }}>{filterLabel(filter)}</Text>
-            <View style={[styles.dot, { backgroundColor: filterColors[filter] }]} />
+            {filter === 'universal' ? null : (
+              <View style={[styles.dot, { backgroundColor: filterColors[filter] }]} />
+            )}
           </Pressable>
         );
       })}
