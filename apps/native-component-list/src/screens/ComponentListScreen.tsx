@@ -1,11 +1,9 @@
-import Ionicons from '@react-native-vector-icons/ionicons';
 import { isRunningInExpoGo } from 'expo';
 import { Link } from 'expo-router';
 import React from 'react';
 import {
   FlatList,
   ListRenderItem,
-  PixelRatio,
   StatusBar,
   StyleProp,
   StyleSheet,
@@ -60,11 +58,12 @@ export function apiScreensToListElements(screens: ScreenConfig[]): ListElement[]
   }));
 }
 
+const NUM_COLUMNS = 3;
+
 interface Props {
   apis: ListElement[];
   renderItemRight?: (props: ListElement) => React.ReactNode;
   sort?: boolean;
-  numColumns?: number;
 }
 
 function LinkButton({
@@ -128,54 +127,39 @@ export default function ComponentListScreen(props: Props) {
 
   const { width } = useWindowDimensions();
   const isMobile = width <= 640;
-  const numColumns = props.numColumns ?? 1;
-  const isGrid = numColumns > 1;
 
   // adjust the right padding for safe area -- we don't need the left because that's where the drawer is.
   const { bottom, right } = useSafeAreaInsets();
-  const gridGap = 2;
-  const itemWidth = isGrid
-    ? Math.floor((width - right - gridGap * (numColumns - 1)) / numColumns)
-    : undefined;
+  const gridGap = 4;
+  const gridPadding = 4;
+  const itemWidth = Math.floor(
+    (width - right - gridPadding * 2 - gridGap * (NUM_COLUMNS - 1)) / NUM_COLUMNS
+  );
 
   const renderExampleSection: ListRenderItem<ListElement> = ({ item }) => {
     const { route, screenName, name: exampleName, isAvailable } = item;
-    if (isGrid) {
-      return (
-        <LinkButton
-          disabled={!isAvailable}
-          href={route ?? screenName ?? exampleName}
-          style={{
-            width: itemWidth,
-            height: 80,
-          }}>
-          <View style={styles.gridItemBody}>
-            <View
-              pointerEvents="none"
-              style={[styles.gridItemContent, !isAvailable && styles.disabledRow]}>
-              {props.renderItemRight && props.renderItemRight(item)}
-              <Text numberOfLines={4} style={[styles.gridLabel, { color: theme.text.default }]}>
-                {exampleName}
-              </Text>
-            </View>
-            <CatalogMarks compatibility={item.compatibility} />
-          </View>
-        </LinkButton>
-      );
-    }
     return (
       <LinkButton
         disabled={!isAvailable}
         href={route ?? screenName ?? exampleName}
-        style={[styles.rowTouchable, { borderBottomColor: theme.border.secondary }]}>
-        <View
-          pointerEvents="none"
-          style={[styles.row, !isAvailable && styles.disabledRow, { paddingRight: 10 + right }]}>
-          {props.renderItemRight && props.renderItemRight(item)}
-          <Text style={[styles.rowLabel, { color: theme.text.default }]}>{exampleName}</Text>
-          <Text style={styles.rowDecorator}>
-            <Ionicons name="chevron-forward" size={18} color={theme.icon.secondary} />
-          </Text>
+        style={{
+          width: itemWidth,
+          height: 80,
+          borderWidth: 1,
+          borderRadius: 4,
+          borderColor: theme.border.secondary,
+          overflow: 'hidden',
+        }}>
+        <View style={styles.gridItemBody}>
+          <View
+            pointerEvents="none"
+            style={[styles.gridItemContent, !isAvailable && styles.disabledRow]}>
+            {props.renderItemRight && props.renderItemRight(item)}
+            <Text numberOfLines={4} style={[styles.gridLabel, { color: theme.text.default }]}>
+              {exampleName}
+            </Text>
+          </View>
+          <CatalogMarks compatibility={item.compatibility} />
         </View>
       </LinkButton>
     );
@@ -200,9 +184,8 @@ export default function ComponentListScreen(props: Props) {
 
   return (
     <FlatList<ListElement>
-      key={isGrid ? `grid-${numColumns}` : 'list'}
-      numColumns={numColumns}
-      initialNumToRender={isGrid ? numColumns * 8 : 25}
+      numColumns={NUM_COLUMNS}
+      initialNumToRender={NUM_COLUMNS * 8}
       removeClippedSubviews={false}
       // Screens with a native search bar or large title grow their header at runtime, so let iOS
       // inset the list instead of letting the header cover the first rows.
@@ -210,11 +193,12 @@ export default function ComponentListScreen(props: Props) {
       keyboardShouldPersistTaps="handled"
       keyboardDismissMode="on-drag"
       style={{ backgroundColor: theme.background.screen }}
-      columnWrapperStyle={isGrid ? { gap: gridGap } : undefined}
+      columnWrapperStyle={{ gap: gridGap }}
       contentContainerStyle={{
         paddingBottom: isMobile ? 0 : bottom,
-        paddingRight: isGrid ? right : 0,
-        gap: isGrid ? gridGap : undefined,
+        paddingHorizontal: gridPadding,
+        paddingRight: gridPadding + right,
+        gap: gridGap,
       }}
       data={sortedApis}
       keyExtractor={keyExtractor}
@@ -262,26 +246,8 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 100,
   },
-  row: {
-    paddingHorizontal: 10,
-    paddingVertical: 14,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  rowDecorator: {
-    alignSelf: 'flex-end',
-    paddingRight: 4,
-  },
-  rowTouchable: {
-    borderBottomWidth: 1.0 / PixelRatio.get(),
-  },
   disabledRow: {
     opacity: 0.3,
-  },
-  rowLabel: {
-    flex: 1,
-    fontSize: 15,
   },
   gridItemBody: {
     flex: 1,

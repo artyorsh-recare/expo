@@ -29,7 +29,7 @@ export default memo(function ExpoComponentsScreen({ apis }: { apis: ListElement[
     <>
       <SearchToolbar />
       <ComponentFilters onChange={setFilters} />
-      <ComponentListScreen numColumns={3} apis={visible} />
+      <ComponentListScreen apis={visible} />
     </>
   );
 });
