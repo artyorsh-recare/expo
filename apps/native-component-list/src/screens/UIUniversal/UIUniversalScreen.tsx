@@ -1,14 +1,9 @@
 import { optionalRequire } from '../../navigation/routeBuilder';
-import ComponentListScreen, {
-  componentScreensToListElements,
-  type ListElement,
-} from '../ComponentListScreen';
-
-const SCREEN_NAME_PREFIX = 'UI Universal ';
+import ComponentListScreen, { componentScreensToListElements } from '../ComponentListScreen';
 
 export const UIUniversalScreens = [
   {
-    name: `${SCREEN_NAME_PREFIX}Button`,
+    name: 'Button',
     route: 'ui-universal/button',
     options: { title: 'Button' },
     getComponent() {
@@ -16,7 +11,7 @@ export const UIUniversalScreens = [
     },
   },
   {
-    name: `${SCREEN_NAME_PREFIX}Text`,
+    name: 'Text',
     route: 'ui-universal/text',
     options: { title: 'Text' },
     getComponent() {
@@ -24,7 +19,7 @@ export const UIUniversalScreens = [
     },
   },
   {
-    name: `${SCREEN_NAME_PREFIX}Switch`,
+    name: 'Switch',
     route: 'ui-universal/switch',
     options: { title: 'Switch' },
     getComponent() {
@@ -32,7 +27,7 @@ export const UIUniversalScreens = [
     },
   },
   {
-    name: `${SCREEN_NAME_PREFIX}Slider`,
+    name: 'Slider',
     route: 'ui-universal/slider',
     options: { title: 'Slider' },
     getComponent() {
@@ -40,7 +35,7 @@ export const UIUniversalScreens = [
     },
   },
   {
-    name: `${SCREEN_NAME_PREFIX}Checkbox`,
+    name: 'Checkbox',
     route: 'ui-universal/checkbox',
     options: { title: 'Checkbox' },
     getComponent() {
@@ -48,7 +43,7 @@ export const UIUniversalScreens = [
     },
   },
   {
-    name: `${SCREEN_NAME_PREFIX}BottomSheet`,
+    name: 'BottomSheet',
     route: 'ui-universal/bottom-sheet',
     options: { title: 'BottomSheet' },
     getComponent() {
@@ -56,7 +51,7 @@ export const UIUniversalScreens = [
     },
   },
   {
-    name: `${SCREEN_NAME_PREFIX}FieldGroup`,
+    name: 'FieldGroup',
     route: 'ui-universal/field-group',
     options: { title: 'FieldGroup' },
     getComponent() {
@@ -64,7 +59,7 @@ export const UIUniversalScreens = [
     },
   },
   {
-    name: `${SCREEN_NAME_PREFIX}List`,
+    name: 'List',
     route: 'ui-universal/list',
     options: { title: 'List' },
     getComponent() {
@@ -72,7 +67,7 @@ export const UIUniversalScreens = [
     },
   },
   {
-    name: `${SCREEN_NAME_PREFIX}Picker`,
+    name: 'Picker',
     route: 'ui-universal/picker',
     options: { title: 'Picker' },
     getComponent() {
@@ -80,7 +75,7 @@ export const UIUniversalScreens = [
     },
   },
   {
-    name: `${SCREEN_NAME_PREFIX}Icon`,
+    name: 'Icon',
     route: 'ui-universal/icon',
     options: { title: 'Icon' },
     getComponent() {
@@ -88,7 +83,7 @@ export const UIUniversalScreens = [
     },
   },
   {
-    name: `${SCREEN_NAME_PREFIX}TextInput`,
+    name: 'TextInput',
     route: 'ui-universal/text-input',
     options: { title: 'TextInput' },
     getComponent() {
@@ -97,15 +92,8 @@ export const UIUniversalScreens = [
   },
 ];
 
-function stripPrefix(elements: ListElement[]): ListElement[] {
-  return elements.map((el) => ({
-    ...el,
-    name: el.name.replace(SCREEN_NAME_PREFIX, ''),
-  }));
-}
-
 export default function UIUniversalScreen() {
-  const apis = stripPrefix(componentScreensToListElements(UIUniversalScreens));
+  const apis = componentScreensToListElements(UIUniversalScreens);
   return <ComponentListScreen apis={apis} sort />;
 }
 

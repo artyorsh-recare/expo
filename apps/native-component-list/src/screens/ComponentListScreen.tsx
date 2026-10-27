@@ -19,7 +19,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { getScreenIdForLinking } from 'test-suite/screens/getScreenIdForLinking';
 
 import { useTheme } from '../../../common/ThemeProvider';
-import type { Filter, ScreenConfig } from '../types/ScreenConfig';
+import { filterColors, type Filter, type ScreenConfig } from '../types/ScreenConfig';
 
 const useObserve: typeof import('expo-observe').useObserve = isRunningInExpoGo()
   ? () => ({ markInteractive: () => {} })
@@ -178,7 +178,11 @@ export default function ComponentListScreen(props: Props) {
         }
         return 1;
       }
-      return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1;
+      const byName = a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+      if (byName !== 0) {
+        return byName;
+      }
+      return a.route.localeCompare(b.route);
     });
   }, [props.apis]);
 
@@ -192,7 +196,7 @@ export default function ComponentListScreen(props: Props) {
       contentInsetAdjustmentBehavior="automatic"
       keyboardShouldPersistTaps="handled"
       keyboardDismissMode="on-drag"
-      style={{ backgroundColor: theme.background.screen }}
+      style={{ backgroundColor: theme.background.screen, flex: 1 }}
       columnWrapperStyle={{ gap: gridGap }}
       contentContainerStyle={{
         paddingBottom: isMobile ? 0 : bottom,
@@ -209,36 +213,21 @@ export default function ComponentListScreen(props: Props) {
 
 function CatalogMarks({ compatibility }: { compatibility?: Filter[] }) {
   const tags = compatibility ?? [];
-  const platform =
-    tags.includes('ios') && !tags.includes('android')
-      ? 'ios'
-      : tags.includes('android') && !tags.includes('ios')
-        ? 'android'
-        : undefined;
-  if (!platform && !tags.includes('community')) {
+  if (tags.length === 0) {
     return null;
   }
   return (
     <View pointerEvents="none" style={styles.catalogMarks}>
-      {platform ? (
-        <CatalogMark
-          label={platform === 'ios' ? 'iOS-only' : 'Android-only'}
-          backgroundColor={platform === 'ios' ? '#007AFF' : '#3DDC84'}
-        />
-      ) : null}
-      {tags.includes('community') ? (
-        <CatalogMark label="Community" backgroundColor="#00BCD4" />
-      ) : null}
+      {tags.includes('universal') ? <CatalogMark color={filterColors.universal} /> : null}
+      {tags.includes('ios-only') ? <CatalogMark color={filterColors['ios-only']} /> : null}
+      {tags.includes('android-only') ? <CatalogMark color={filterColors['android-only']} /> : null}
+      {tags.includes('community') ? <CatalogMark color={filterColors.community} /> : null}
     </View>
   );
 }
 
-function CatalogMark({ label, backgroundColor }: { label: string; backgroundColor: string }) {
-  return (
-    <View style={[styles.catalogMark, { backgroundColor }]}>
-      <Text style={styles.catalogMarkText}>{label}</Text>
-    </View>
-  );
+function CatalogMark({ color }: { color: string }) {
+  return <View style={[styles.catalogMark, { backgroundColor: color }]} />;
 }
 
 const styles = StyleSheet.create({
@@ -267,18 +256,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 8,
     left: 8,
+    flexDirection: 'row',
     gap: 2,
   },
   catalogMark: {
-    alignSelf: 'flex-start',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-    paddingVertical: 1,
-  },
-  catalogMarkText: {
-    color: '#fff',
-    fontSize: 10,
-    fontWeight: '600',
+    width: 8,
+    height: 8,
+    borderRadius: 4,
   },
   rowIcon: {
     marginRight: 10,

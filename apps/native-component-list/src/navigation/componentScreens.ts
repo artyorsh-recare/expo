@@ -1,64 +1,21 @@
+import { Platform } from 'react-native';
+
 import { componentScreensToListElements } from '../screens/ComponentListScreen';
 import { type Filter, type ScreenConfig } from '../types/ScreenConfig';
 import { optionalRequire, optionalScreens } from './routeBuilder';
 
-// Expo UI screens with no counterpart on the other platform. Shared names such as Button are omitted.
-const IOS_ONLY_EXPO_UI = new Set([
-  'Dialog, Confirmation',
-  'Glass Effect',
-  'Image',
-  'Label',
-  'Link',
-  'List',
-  'Menu, Context',
-  'NavigationSplitView',
-  'Picker',
-  'Popover',
-  'Section',
-  'ShareLink',
-  'Stepper',
-  'Swipeable',
-  'Toggle',
-  'Background',
-  'Content Transition',
-]);
-
-const ANDROID_ONLY_EXPO_UI = new Set([
-  'Button, Floating',
-  'Checkbox',
-  'DatePicker, Range',
-  'Dialog, Basic Alert',
-  'HorizontalFloatingToolbar',
-  'HorizontalPager',
-  'IconButton',
-  'Menu, Exposed',
-  'Progress',
-  'PullToRefreshBox',
-  'Radio',
-  'SegmentedControl',
-  'Shape',
-  'Snackbar',
-  'Surface',
-  'Switch',
-  'SyncSwitch',
-  'TextField, Basic',
-  'ToggleButton',
-  'Tooltip',
-  'TopAppBar',
-  'Card',
-  'Carousel',
-  'Chip',
-]);
-
-function expoUiCompatibility(name: string): Filter[] {
+function platformExpoUiCompatibility(name: string): Filter[] {
   // FormScreen.android.tsx is a stub.
-  if (name === 'Form' || IOS_ONLY_EXPO_UI.has(name)) {
-    return ['ios'];
+  if (name === 'Form' && Platform.OS !== 'ios') {
+    return ['ios-only'];
   }
-  if (ANDROID_ONLY_EXPO_UI.has(name)) {
-    return ['android'];
+  if (Platform.OS === 'android') {
+    return ['android-only'];
   }
-  return ['ios', 'android'];
+  if (Platform.OS === 'ios') {
+    return ['ios-only'];
+  }
+  return ['community'];
 }
 
 // Screen groups are loaded lazily so a group whose module fails to load, for example because it
@@ -79,7 +36,7 @@ export const ScreensList: ScreenConfig[] = [
       return optionalRequire(() => require('../screens/DrawerLayoutAndroidScreen'));
     },
     name: 'DrawerLayoutAndroid',
-    compatibility: ['android', 'community'],
+    compatibility: ['android-only', 'community'],
   },
   {
     getComponent() {
@@ -93,7 +50,7 @@ export const ScreensList: ScreenConfig[] = [
       return optionalRequire(() => require('../screens/GlassView/GlassViewScreen'));
     },
     name: 'GlassView',
-    compatibility: ['ios', 'community'],
+    compatibility: ['ios-only', 'community'],
   },
   {
     getComponent() {
@@ -156,12 +113,10 @@ export const ScreensList: ScreenConfig[] = [
     },
     name: 'Skia',
   },
-  {
-    getComponent() {
-      return optionalRequire(() => require('../screens/UIUniversal/UIUniversalScreen'));
-    },
-    name: '!! Expo UI',
-  },
+  ...UIUniversalScreens.map((screen) => ({
+    ...screen,
+    compatibility: ['universal'] satisfies Filter[],
+  })),
   {
     getComponent() {
       return optionalRequire(() => require('../screens/SymbolImageScreen'));
@@ -174,17 +129,12 @@ export const ScreensList: ScreenConfig[] = [
     return screen;
   }
   // Match the Expo UI entry by object. A community screen can use the same title.
-  if (UIScreens.includes(screen) || screen.name === '!! Expo UI') {
-    return { ...screen, compatibility: expoUiCompatibility(screen.name) };
+  if (UIScreens.includes(screen)) {
+    return { ...screen, compatibility: platformExpoUiCompatibility(screen.name) };
   }
-  return { ...screen, compatibility: ['ios', 'android', 'community'] satisfies Filter[] };
+  return { ...screen, compatibility: ['community'] satisfies Filter[] };
 });
 
-export const Screens: ScreenConfig[] = [
-  ...ScreensList,
-  ...BlurScreens,
-  ...UIScreens,
-  ...UIUniversalScreens,
-];
+export const Screens: ScreenConfig[] = [...ScreensList, ...BlurScreens, ...UIScreens];
 
 export const screenApiItems = componentScreensToListElements(ScreensList);

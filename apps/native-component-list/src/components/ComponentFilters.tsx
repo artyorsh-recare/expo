@@ -1,35 +1,51 @@
 import React from 'react';
-import { Platform, Pressable, ScrollView, StyleSheet, Text } from 'react-native';
+import {
+  LayoutAnimation,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  UIManager,
+  View,
+} from 'react-native';
 
 import { useTheme } from '../../../common/ThemeProvider';
-import type { Filter } from '../types/ScreenConfig';
+import { filterColors, type Filter } from '../types/ScreenConfig';
 
 export type { Filter };
 
-const FILTERS: Filter[] = ['ios', 'android', 'community'];
+if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 type Props = {
   onChange: (filters: Filter[]) => void;
 };
 
-export function defaultFilters(): Filter[] {
-  const filters: Filter[] = ['community'];
-  if (Platform.OS === 'ios') {
-    filters.unshift('ios');
-  } else if (Platform.OS === 'android') {
-    filters.unshift('android');
-  } else {
-    filters.unshift('ios', 'android');
+function filterChips(): Filter[] {
+  if (Platform.OS === 'android') {
+    return ['universal', 'android-only', 'community'];
   }
-  return filters;
+  if (Platform.OS === 'ios') {
+    return ['universal', 'ios-only', 'community'];
+  }
+  return ['universal', 'ios-only', 'android-only', 'community'];
+}
+
+export function defaultFilters(): Filter[] {
+  return ['universal', 'community'];
 }
 
 function filterLabel(filter: Filter): string {
-  if (filter === 'ios') {
-    return 'iOS';
+  if (filter === 'universal') {
+    return 'Universal';
   }
-  if (filter === 'android') {
-    return 'Android';
+  if (filter === 'ios-only') {
+    return 'iOS-only';
+  }
+  if (filter === 'android-only') {
+    return 'Android-only';
   }
   return 'Community';
 }
@@ -37,11 +53,13 @@ function filterLabel(filter: Filter): string {
 export default function ComponentFilters({ onChange }: Props) {
   const { theme } = useTheme();
   const [filters, setFilters] = React.useState<Filter[]>(defaultFilters);
+  const chips = filterChips();
 
   const toggle = (filter: Filter) => {
     const next = filters.includes(filter)
       ? filters.filter((item) => item !== filter)
       : [...filters, filter];
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setFilters(next);
     onChange(next);
   };
@@ -52,7 +70,7 @@ export default function ComponentFilters({ onChange }: Props) {
       showsHorizontalScrollIndicator={false}
       style={[styles.bar, { backgroundColor: theme.background.screen }]}
       contentContainerStyle={styles.row}>
-      {FILTERS.map((filter) => {
+      {chips.map((filter) => {
         const selected = filters.includes(filter);
         return (
           <Pressable
@@ -61,13 +79,11 @@ export default function ComponentFilters({ onChange }: Props) {
             style={[
               styles.chip,
               {
-                backgroundColor: selected ? theme.icon.info : 'transparent',
-                borderColor: selected ? theme.icon.info : theme.border.default,
+                borderColor: selected ? theme.text.default : theme.border.default,
               },
             ]}>
-            <Text style={{ color: selected ? '#fff' : theme.text.default }}>
-              {filterLabel(filter)}
-            </Text>
+            <Text style={{ color: theme.text.default }}>{filterLabel(filter)}</Text>
+            <View style={[styles.dot, { backgroundColor: filterColors[filter] }]} />
           </Pressable>
         );
       })}
@@ -78,6 +94,8 @@ export default function ComponentFilters({ onChange }: Props) {
 const styles = StyleSheet.create({
   bar: {
     flexGrow: 0,
+    flexShrink: 0,
+    height: 52,
   },
   row: {
     flexDirection: 'row',
@@ -87,9 +105,17 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
   },
   chip: {
-    borderWidth: StyleSheet.hairlineWidth,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    borderWidth: 1,
     borderRadius: 16,
     paddingHorizontal: 12,
     paddingVertical: 6,
+  },
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
   },
 });
