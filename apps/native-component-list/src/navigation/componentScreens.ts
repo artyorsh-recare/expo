@@ -80,6 +80,11 @@ const UIUniversalScreens: ScreenConfig[] = optionalScreens(
   () => require('../screens/UIUniversal/UIUniversalScreen').UIUniversalScreens
 );
 
+const expoUiCatalogNames = new Set<string>([
+  '!! Expo UI (Universal)',
+  ...UIScreens.map((screen) => screen.name),
+]);
+
 export const ScreensList: ScreenConfig[] = [
   {
     getComponent() {
@@ -179,10 +184,9 @@ export const ScreensList: ScreenConfig[] = [
   },
   ...UIScreens.map((screen) => ({
     ...screen,
-    name: `${screen.name} (expo-ui)`,
     platform: exclusivePlatform(screen.name),
   })),
-];
+].map((screen) => (expoUiCatalogNames.has(screen.name) ? screen : { ...screen, community: true }));
 
 export const Screens: ScreenConfig[] = [
   ...ScreensList,

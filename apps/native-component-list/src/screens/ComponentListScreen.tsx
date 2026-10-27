@@ -33,6 +33,7 @@ export interface ListElement {
   route: string;
   isAvailable: boolean;
   platform?: 'ios' | 'android';
+  community?: boolean;
 }
 
 /**
@@ -45,6 +46,7 @@ export function componentScreensToListElements(screens: ScreenConfig[]): ListEle
     isAvailable: true,
     route: `/components/${getScreenIdForLinking(screen)}`,
     platform: screen.platform,
+    community: screen.community,
   }));
 }
 
@@ -159,7 +161,12 @@ export default function ComponentListScreen(props: Props) {
                 {exampleName}
               </Text>
             </View>
-            {item.platform ? <PlatformMark platform={item.platform} /> : null}
+            {item.platform || item.community ? (
+              <View pointerEvents="none" style={styles.catalogMarks}>
+                {item.platform ? <PlatformMark platform={item.platform} /> : null}
+                {item.community ? <Text style={styles.communityLabel}>Community</Text> : null}
+              </View>
+            ) : null}
           </View>
         </LinkButton>
       );
@@ -225,7 +232,7 @@ export default function ComponentListScreen(props: Props) {
 function PlatformMark({ platform }: { platform: 'ios' | 'android' }) {
   const backgroundColor = platform === 'ios' ? '#007AFF' : '#3DDC84';
   return (
-    <View pointerEvents="none" style={styles.platformMark}>
+    <View style={styles.platformMark}>
       <View style={[styles.platformDot, { backgroundColor }]} />
       <Text style={[styles.platformMarkText, { color: backgroundColor }]}>
         {platform === 'ios' ? 'iOS' : 'Android'}
@@ -278,13 +285,21 @@ const styles = StyleSheet.create({
     fontSize: 13,
     textAlign: 'center',
   },
-  platformMark: {
+  catalogMarks: {
     position: 'absolute',
     top: 8,
     left: 8,
+    gap: 2,
+  },
+  platformMark: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
+  },
+  communityLabel: {
+    color: '#00BCD4',
+    fontSize: 10,
+    fontWeight: '600',
   },
   platformDot: {
     width: 6,

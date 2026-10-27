@@ -6,4 +6,5 @@ export type ScreenConfig = {
   route?: string;
   options?: object;
   platform?: 'ios' | 'android';
+  community?: boolean;
 };
