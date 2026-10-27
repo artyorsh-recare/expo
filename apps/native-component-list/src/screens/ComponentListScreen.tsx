@@ -32,6 +32,7 @@ export interface ListElement {
   name: string;
   route: string;
   isAvailable: boolean;
+  platform?: 'ios' | 'android';
 }
 
 /**
@@ -43,6 +44,7 @@ export function componentScreensToListElements(screens: ScreenConfig[]): ListEle
     name: screen.name,
     isAvailable: true,
     route: `/components/${getScreenIdForLinking(screen)}`,
+    platform: screen.platform,
   }));
 }
 
@@ -62,6 +64,7 @@ interface Props {
   apis: ListElement[];
   renderItemRight?: (props: ListElement) => React.ReactNode;
   sort?: boolean;
+  numColumns?: number;
 }
 
 function LinkButton({
@@ -125,12 +128,42 @@ export default function ComponentListScreen(props: Props) {
 
   const { width } = useWindowDimensions();
   const isMobile = width <= 640;
+  const numColumns = props.numColumns ?? 1;
+  const isGrid = numColumns > 1;
 
   // adjust the right padding for safe area -- we don't need the left because that's where the drawer is.
   const { bottom, right } = useSafeAreaInsets();
+  const itemWidth = isGrid ? Math.floor((width - right) / numColumns) : undefined;
 
   const renderExampleSection: ListRenderItem<ListElement> = ({ item }) => {
     const { route, screenName, name: exampleName, isAvailable } = item;
+    if (isGrid) {
+      return (
+        <LinkButton
+          disabled={!isAvailable}
+          href={route ?? screenName ?? exampleName}
+          style={[
+            styles.gridItem,
+            {
+              width: itemWidth,
+              height: 128,
+              borderColor: theme.border.secondary,
+            },
+          ]}>
+          <View style={styles.gridItemBody}>
+            <View
+              pointerEvents="none"
+              style={[styles.gridItemContent, !isAvailable && styles.disabledRow]}>
+              {props.renderItemRight && props.renderItemRight(item)}
+              <Text numberOfLines={4} style={[styles.gridLabel, { color: theme.text.default }]}>
+                {exampleName}
+              </Text>
+            </View>
+            {item.platform ? <PlatformMark platform={item.platform} /> : null}
+          </View>
+        </LinkButton>
+      );
+    }
     return (
       <LinkButton
         disabled={!isAvailable}
@@ -168,7 +201,9 @@ export default function ComponentListScreen(props: Props) {
 
   return (
     <FlatList<ListElement>
-      initialNumToRender={25}
+      key={isGrid ? `grid-${numColumns}` : 'list'}
+      numColumns={numColumns}
+      initialNumToRender={isGrid ? numColumns * 8 : 25}
       removeClippedSubviews={false}
       // Screens with a native search bar or large title grow their header at runtime, so let iOS
       // inset the list instead of letting the header cover the first rows.
@@ -178,11 +213,24 @@ export default function ComponentListScreen(props: Props) {
       style={{ backgroundColor: theme.background.screen }}
       contentContainerStyle={{
         paddingBottom: isMobile ? 0 : bottom,
+        paddingRight: isGrid ? right : 0,
       }}
       data={sortedApis}
       keyExtractor={keyExtractor}
       renderItem={renderExampleSection}
     />
+  );
+}
+
+function PlatformMark({ platform }: { platform: 'ios' | 'android' }) {
+  const backgroundColor = platform === 'ios' ? '#007AFF' : '#3DDC84';
+  return (
+    <View pointerEvents="none" style={styles.platformMark}>
+      <View style={[styles.platformDot, { backgroundColor }]} />
+      <Text style={[styles.platformMarkText, { color: backgroundColor }]}>
+        {platform === 'ios' ? 'iOS' : 'Android'}
+      </Text>
+    </View>
   );
 }
 
@@ -211,6 +259,41 @@ const styles = StyleSheet.create({
   rowLabel: {
     flex: 1,
     fontSize: 15,
+  },
+  gridItem: {
+    borderBottomWidth: 1.0 / PixelRatio.get(),
+    borderRightWidth: 1.0 / PixelRatio.get(),
+  },
+  gridItemBody: {
+    flex: 1,
+  },
+  gridItemContent: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 8,
+    gap: 8,
+  },
+  gridLabel: {
+    fontSize: 13,
+    textAlign: 'center',
+  },
+  platformMark: {
+    position: 'absolute',
+    top: 8,
+    left: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  platformDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+  },
+  platformMarkText: {
+    fontSize: 10,
+    fontWeight: '600',
   },
   rowIcon: {
     marginRight: 10,

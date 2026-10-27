@@ -9,9 +9,8 @@ export default memo(function ExpoComponentsScreen({ apis }: { apis: ListElement[
     <>
       <SearchToolbar />
       <ComponentListScreen
-        renderItemRight={({ name }: { name: string }) => (
-          <ExpoAPIIcon name={name} style={{ marginRight: 10, marginLeft: 6 }} />
-        )}
+        renderItemRight={({ name }: { name: string }) => <ExpoAPIIcon name={name} />}
+        numColumns={3}
         apis={apis}
       />
     </>
