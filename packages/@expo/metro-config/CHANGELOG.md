@@ -1,5 +1,11 @@
 # Changelog
 
+## 58.0.19
+
+### Patch Changes
+
+- Fix invalid CSS transformer output when (unstable) graph optimization is enabled. ([`dc11d37`](https://github.com/expo/expo/commit/dc11d37b4f142e930205873140273068f2986e63) by [@kitten](https://github.com/kitten))
+
 ## 58.0.18
 
 ### Patch Changes

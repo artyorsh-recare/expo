@@ -1,5 +1,14 @@
 # Changelog
 
+## 58.0.21
+
+### Patch Changes
+
+- Updated dependencies. ([`dc11d37`](https://github.com/expo/expo/commit/dc11d37b4f142e930205873140273068f2986e63))
+  - @expo/metro-config@58.0.19
+  - @expo/cli@58.1.17
+  - babel-preset-expo@58.0.22
+
 ## 58.0.20
 
 ### Patch Changes

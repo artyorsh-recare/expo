@@ -1,5 +1,14 @@
 # native-tests
 
+## 1.0.15
+
+### Patch Changes
+
+- Updated dependencies.
+  - expo-router@58.0.28
+  - expo@58.0.21
+  - expo-updates@58.0.18
+
 ## 1.0.14
 
 ### Patch Changes

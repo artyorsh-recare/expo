@@ -1,5 +1,14 @@
 # expo-app
 
+## 1.0.15
+
+### Patch Changes
+
+- Updated dependencies.
+  - expo-router@58.0.28
+  - expo@58.0.21
+  - expo-dev-menu@58.0.12
+
 ## 1.0.14
 
 ### Patch Changes

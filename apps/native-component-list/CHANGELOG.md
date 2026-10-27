@@ -1,5 +1,17 @@
 # native-component-list
 
+## 0.0.15
+
+### Patch Changes
+
+- Updated dependencies. ([#52382](https://github.com/expo/expo/pull/52382))
+  - @expo/ui@58.0.25
+  - test-suite@1.0.15
+  - expo-app-intents@0.5.14
+  - expo-router@58.0.28
+  - expo@58.0.21
+  - expo-updates@58.0.18
+
 ## 0.0.14
 
 ### Patch Changes

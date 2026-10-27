@@ -1,5 +1,19 @@
 # bare-expo
 
+## 0.0.16
+
+### Patch Changes
+
+- Updated dependencies. ([#52382](https://github.com/expo/expo/pull/52382))
+  - @expo/ui@58.0.25
+  - native-component-list@0.0.15
+  - test-suite@1.0.15
+  - expo-app-intents@0.5.14
+  - expo-router@58.0.28
+  - expo@58.0.21
+  - expo-updates@58.0.18
+  - expo-dev-menu@58.0.12
+
 ## 0.0.15
 
 ### Patch Changes

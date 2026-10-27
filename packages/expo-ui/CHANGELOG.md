@@ -1,5 +1,11 @@
 # Changelog
 
+## 58.0.25
+
+### Patch Changes
+
+- [Android] Fix a `ListItem` inside `FieldGroup.Section` being rendered inside a second Material `ListItem`, which drew an inset inner card, made the row taller than other rows and shrank its tap target. The `ListItem` is now styled as the section's row, and its ripple follows the row's rounded shape. ([#52382](https://github.com/expo/expo/pull/52382) by [@github-actions](https://github.com/apps/github-actions))
+
 ## 58.0.24
 
 ### Patch Changes

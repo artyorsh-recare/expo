@@ -1,5 +1,12 @@
 # expo-template-blank
 
+## 58.0.30
+
+### Patch Changes
+
+- Updated dependencies.
+  - expo@58.0.21
+
 ## 58.0.29
 
 ### Patch Changes

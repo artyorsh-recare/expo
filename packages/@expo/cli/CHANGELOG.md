@@ -1,5 +1,12 @@
 # Changelog
 
+## 58.1.17
+
+### Patch Changes
+
+- Updated dependencies. ([`dc11d37`](https://github.com/expo/expo/commit/dc11d37b4f142e930205873140273068f2986e63))
+  - @expo/metro-config@58.0.19
+
 ## 58.1.16
 
 ### Patch Changes
